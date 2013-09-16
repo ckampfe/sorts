@@ -1,11 +1,11 @@
 def bubblesort(my_array)
   # comparison, return the swapped elements and true if a swap occured,
   # otherwise just return the elements in order 
-  compare = lambda do |ele1, ele2|
-    if ele1 > ele2
-      return ele2, ele1, true
+  compare = lambda do |ele0, ele1|
+    if ele0 > ele1
+      return ele1, ele0, true
     else
-      return ele1, ele2 
+      return ele0, ele1 
     end
   end 
  
