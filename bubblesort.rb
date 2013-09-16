@@ -25,16 +25,3 @@ def bubblesort(my_array)
     my_array
   end
 end
-
-
-# test cases, baby!
-5.times do
-  rand_my_array = []
-  5.times { rand_my_array << rand(500) }
-  p "rand my_array:"
-  p rand_my_array
-  print "\n + bubblesorted:"
-  p bubblesort(rand_my_array)
-  print "\n + #sort method"
-  p rand_my_array.sort
-end

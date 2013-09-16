@@ -20,10 +20,3 @@ def quicksort(array)
   # recursively combine the results, with pivot between the lesser and greater arrays
   return quicksort(less) + quicksort(greater).unshift(pivot)
 end
-
-# test case
-1.times do
-  rando_array = []
-  200.times { rando_array << rand(1001) }
-  p quicksort(rando_array)
-end
