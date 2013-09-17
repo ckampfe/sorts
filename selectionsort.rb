@@ -14,20 +14,10 @@ def selection(an_array)
       n += 1
     end
     
-    current_min = an_array.delete_at(an_array.index(current_min))
+    current_min = an_array.delete_at(an_array.rindex(current_min))
     an_array.insert(current_pos, current_min)
     current_pos += 1
   end 
   
   an_array
-end
-
-
-# p selection([6,3,7,2,8,1,0])
-
-5.times do
-  temp_rando = []
-  5.times { temp_rando << rand(40) }
-  p "rando array: #{temp_rando}"
-  p "selection-sorted array: #{selection(temp_rando)}"
 end
