@@ -1,4 +1,4 @@
-# just a little functional summer I had the idea to make.
+# just a little functional adder I had the idea to make.
 
 def sum(an_array)
   if an_array.length == 1
