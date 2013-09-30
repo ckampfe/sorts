@@ -11,7 +11,6 @@ def binary_search(n, list, place, adj)
   end
   
   # not found
-  
   if list.length <= 2 && list[0] != n
     return -1
   end
