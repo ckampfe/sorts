@@ -33,6 +33,7 @@ class Linked_List
     end
 
     @actual << Node.new(a_node, builder(@raw_nodes.shift).object_id)
+    @actual.sort! { |a, b| a.instance_variable_get(:@value) <=> b.instance_variable_get(:@value) }
   end
 
   def to_a
