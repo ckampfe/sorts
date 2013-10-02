@@ -27,14 +27,11 @@ class Linked_List
   # recursively extract items and define lists in terms of their next relationship
   # still having trouble
   def builder(a_node)
-    # p @raw_nodes
-    if @raw_nodes.length == 1
-      return @actual << Node.new(@raw_nodes.shift, nil)
-    else
-      @actual << Node.new(a_node, builder(@raw_nodes.shift).object_id)
+    if @raw_nodes.length == 0
+      return @actual << Node.new(a_node, nil)
     end
 
-    @actual
+    @actual << Node.new(a_node, builder(@raw_nodes.shift).object_id)
   end
 
 
