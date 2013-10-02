@@ -19,27 +19,26 @@ class Linked_List
       nodes 
     end
 
-    @raw_nodes = nodes
+    @raws = nodes
     @actual = []
-    builder(@raw_nodes.shift) # begin linked list construction
+    builder(@raws, Node.new(@raws.pop, nil)) # linked list construction
   end
 
   # recursively extract items and define lists in terms of their next relationship
-  def builder(a_node)
-    if @raw_nodes.length == 0
-      @actual << Node.new(a_node, nil) # last node holds nil for next_pointer, not sure
-                                       # if it should be something else.
+  def builder(nodes, a_node)
+    
+    @actual.unshift(a_node)
+
+    if nodes.length == 0
       return @actual
     end
-
-    @actual << Node.new(a_node, builder(@raw_nodes.shift).object_id)
-    @actual.sort! { |a, b| a.instance_variable_get(:@value) <=> b.instance_variable_get(:@value) }
+    
+    builder(nodes, Node.new(nodes.pop, @actual[0].object_id))
   end
 
   def to_a
-    a = []
-    @actual.each { |node| a << node.instance_variable_get(:@value) }
-    a
+     
+    # @actual.each { |node| a << node.instance_variable_get(:@value) }
   end
 
 
@@ -49,9 +48,8 @@ end
 my_list = Linked_List.new(1,2,3,4,5,6)
 p my_list.to_a
 p my_list
+p my_list.instance_variable_get(:@actual).length
+p my_list.instance_variable_get(:@actual)[0]
+p ObjectSpace._id2ref(my_list.instance_variable_get(:@actual)[0].instance_variable_get(:@next_pointer))
 
-# _id2ref test
-# z = "a string"
-# puts z.object_id
-# a = z.object_id
-# puts ObjectSpace._id2ref(a)
+
