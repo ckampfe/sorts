@@ -11,10 +11,10 @@ end
 
 
 class Linked_List
-
+  
+  attr_reader :actual
 
   def initialize(nodes)
-    
     if nodes.length == 0
       nodes 
     end
@@ -25,33 +25,30 @@ class Linked_List
   end
 
   # recursively extract items and define lists in terms of their next relationship
-  # still having trouble
   def builder(a_node)
     if @raw_nodes.length == 0
-      return @actual << Node.new(a_node, nil)
+      @actual << Node.new(a_node, nil)
+      return @actual
     end
 
     @actual << Node.new(a_node, builder(@raw_nodes.shift).object_id)
   end
 
+  def to_a
+    a = []
+    @actual.each { |node| a << node.instance_variable_get(:@value) }
+    a
+  end
 
- def inspect
-   @actual.each { |n| puts n.inspect } 
- end
 
- #  def list(a_node)
- #    @list ||= []
- #    unless a_node[@next_pointer] == nil
- #      @list << list(a_node[@next_pointer]) 
- #    else
- #      return a_node[@value]    
- #    end 
- #    
- #  end
 end
 
+# instance teset
 my_list = Linked_List.new([1,2,3,4,5,6])
-p my_list.inspect
+p my_list.to_a
 
-# another_list = Linked_List.new([])
-# p another_list
+# _id2ref test
+# z = "a string"
+# puts z.object_id
+# a = z.object_id
+# puts ObjectSpace._id2ref(a)
