@@ -1,5 +1,7 @@
 class Node
+
   attr_accessor :value, :next_pointer
+  
   # the data of a node
   def initialize(value, next_pointer)
     @value = value
@@ -9,22 +11,35 @@ end
 
 
 class Linked_List
+
+
   def initialize(nodes)
-    @nodes = nodes
-    builder(@nodes.shift)
+    
+    if nodes.length == 0
+      nodes 
+    end
+
+    @raw_nodes = nodes
+    @actual = []
+    builder(@raw_nodes.shift)
   end
 
+  # recursively extract items and define lists in terms of their next relationship
+  # still having trouble
   def builder(a_node)
-    if @nodes.length <=  0
-      return Node.new(@nodes.shift, nil).object_id
+    # p @raw_nodes
+    if @raw_nodes.length == 1
+      return @actual << Node.new(@raw_nodes.shift, nil)
+    else
+      @actual << Node.new(a_node, builder(@raw_nodes.shift).object_id)
     end
-     @nodes << Node.new(a_node, builder(@nodes.shift).object_id)
+
+    @actual
   end
 
 
  def inspect
-   @nodes.each { |n| p n } 
-
+   @actual.each { |n| puts n.inspect } 
  end
 
  #  def list(a_node)
@@ -39,5 +54,7 @@ class Linked_List
 end
 
 my_list = Linked_List.new([1,2,3,4,5,6])
-
 p my_list.inspect
+
+# another_list = Linked_List.new([])
+# p another_list
