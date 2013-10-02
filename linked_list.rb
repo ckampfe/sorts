@@ -57,10 +57,17 @@ class Linked_List
 
 end
 
-# instance test
+# integers
 my_list = Linked_List.new(1,2,3,4,5,6)
 p my_list
 p my_list.to_a
-# p my_list.instance_variable_get(:@actual).length
-# p my_list.instance_variable_get(:@actual)[0]
-# p ObjectSpace._id2ref(my_list.instance_variable_get(:@actual)[0].instance_variable_get(:@next_pointer))
+
+# strings
+string_list = Linked_List.new("hello", "there", "sonny", "boy")
+p string_list
+p string_list.to_a
+
+
+mixed_list = Linked_List.new("hello", "caprica", 6)
+p mixed_list
+p mixed_list.to_a
