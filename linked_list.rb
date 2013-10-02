@@ -14,20 +14,21 @@ class Linked_List
   
   attr_reader :actual
 
-  def initialize(nodes)
+  def initialize(*nodes)
     if nodes.length == 0
       nodes 
     end
 
     @raw_nodes = nodes
     @actual = []
-    builder(@raw_nodes.shift)
+    builder(@raw_nodes.shift) # begin linked list construction
   end
 
   # recursively extract items and define lists in terms of their next relationship
   def builder(a_node)
     if @raw_nodes.length == 0
-      @actual << Node.new(a_node, nil)
+      @actual << Node.new(a_node, nil) # last node holds nil for next_pointer, not sure
+                                       # if it should be something else.
       return @actual
     end
 
@@ -43,9 +44,10 @@ class Linked_List
 
 end
 
-# instance teset
-my_list = Linked_List.new([1,2,3,4,5,6])
+# instance test
+my_list = Linked_List.new(1,2,3,4,5,6)
 p my_list.to_a
+p my_list
 
 # _id2ref test
 # z = "a string"
