@@ -40,30 +40,20 @@ class Linked_List
   def to_a
     a = []
     array_builder = lambda do |an_obj_id|
-
       this_node = ObjectSpace._id2ref(an_obj_id)
       next_node = this_node.instance_variable_get(:@next_pointer)
       
       a << this_node.instance_variable_get(:@value)
 
       if this_node.instance_variable_get(:@next_pointer) == nil
-        # return a_node.instance_variable_get(:@value)
         return a
       end
-
 
        array_builder.call(next_node)
     end
 
     array_builder.call(@first)
-
-
-    
-
-
-    # @actual.each { |node| a << node.instance_variable_get(:@value) }
   end
-
 
 end
 
@@ -74,5 +64,3 @@ p my_list.to_a
 # p my_list.instance_variable_get(:@actual).length
 # p my_list.instance_variable_get(:@actual)[0]
 # p ObjectSpace._id2ref(my_list.instance_variable_get(:@actual)[0].instance_variable_get(:@next_pointer))
-
-
