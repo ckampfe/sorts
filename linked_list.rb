@@ -15,19 +15,21 @@ class Linked_List
   attr_reader :actual
 
   def initialize(*nodes)
-    if nodes.length == 0
-      nodes 
+    if nodes.length > 0
+      @raws = nodes
+      @actual = []
+      builder(@raws, Node.new(@raws.pop, nil)) # linked list construction
+      @first = @actual[0].object_id
+    else
+      @first = nil
     end
-
-    @raws = nodes
-    @actual = []
-    builder(@raws, Node.new(@raws.pop, nil)) # linked list construction
-    @first = @actual[0].object_id
   end
 
   # recursively extract items and define lists in terms of their next relationship
   def builder(nodes, a_node)
-    
+   
+    # perhaps revise so that nodes do not live in an array, rather,
+    # just use '@first' as the the main vector. 
     @actual.unshift(a_node)
 
     if nodes.length == 0
@@ -52,7 +54,7 @@ class Linked_List
        array_builder.call(next_node)
     end
 
-    array_builder.call(@first)
+    @first != nil ? array_builder.call(@first) : []
   end
 
 end
@@ -67,7 +69,12 @@ string_list = Linked_List.new("hello", "there", "sonny", "boy")
 p string_list
 p string_list.to_a
 
-
+# mixed
 mixed_list = Linked_List.new("hello", "caprica", 6)
 p mixed_list
 p mixed_list.to_a
+
+# empty
+empty = Linked_List.new()
+p empty
+p empty.to_a
