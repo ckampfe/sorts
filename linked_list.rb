@@ -29,7 +29,8 @@ class Linked_List
   def builder(nodes, a_node)
    
     # perhaps revise so that nodes do not live in an array, rather,
-    # just use '@first' as the the main vector. 
+    # just use '@first' as the the main vector, and have a temp
+    # variable hold the next prev
     @actual.unshift(a_node)
 
     if nodes.length == 0
