@@ -12,8 +12,6 @@ end
 
 class Linked_List
   
-  attr_reader :actual
-
   def initialize(*raw_items)
     if raw_items.length > 0
       # @head is defined inside of #builder for all lengths > 0 
@@ -83,8 +81,7 @@ class Linked_List
       unless node.instance_variable_get(:@next_pointer) == nil
         last_setter.call(ObjectSpace._id2ref(node.instance_variable_get(:@next_pointer)), index)
       else
-        # I'm still trying to work out why this is 'push_vals[value - 1]' instead of 
-        # push_vals[value], given that the intitial call is with index 0
+        # creates a new last node
         node.instance_variable_set(:@next_pointer, Node.new(push_vals[index - 1], nil).object_id)
         # call again with the next value of push_vals
         last_setter.call(ObjectSpace._id2ref(@head), index + 1)
@@ -93,7 +90,7 @@ class Linked_List
 
     # determines if list is empty, and if so, defines a first value before proceeding. 
     if @head
-      last_setter.call(@head, 0)
+      last_setter.call(ObjectSpace._id2ref(@head), 1)
     else
       @head = Node.new(push_vals[0], nil).object_id
       last_setter.call(@head, 1)
@@ -140,3 +137,10 @@ p my_list.to_a #=> [1,2]
 p my_list.push("dinkytown", true) #=> [1,2,"dinkytown", true]
 p my_list.last #=> true
 p my_list.first #=> 1
+
+newy = Linked_List.new(3)
+p newy #=> #<>
+p newy.push(5) #=> [3,5]
+
+empty = Linked_List.new
+p empty.push("mcownedyou", "whamford")
