@@ -123,6 +123,16 @@ class Linked_List
 
     pop_array.length > 1 ? pop_array : pop_array[0]
   end
+  
+  def unshift(*unshift_vals)
+    unshifter = lambda do |index|
+      @head = Node.new(unshift_vals[index], @head).object_id 
+      return self.to_a if index == 0 
+      unshifter.call(index - 1)
+    end
+    
+    unshift_vals.length > 0 ? unshifter.call(unshift_vals.length - 1) : self.to_a
+  end
 end
 
 # tests
@@ -137,10 +147,15 @@ p my_list.to_a #=> [1,2]
 p my_list.push("dinkytown", true) #=> [1,2,"dinkytown", true]
 p my_list.last #=> true
 p my_list.first #=> 1
+p my_list.unshift #=> [1,2,"dinkytown",true]
+p my_list.unshift("holland", 1945) #=> ["holland",1945,1,2,"dinkytown",true]
 
 newy = Linked_List.new(3)
 p newy #=> #<>
 p newy.push(5) #=> [3,5]
 
 empty = Linked_List.new
-p empty.push("mcownedyou", "whamford")
+p empty.push("mcownedyou", "whamford") #=> ["mcownedyou", "whamford"]
+
+empty_second = Linked_List.new
+p empty_second.unshift(8) #=> [8]
