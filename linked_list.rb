@@ -127,7 +127,7 @@ p empty.to_a #=> []
 
 # push
 another_list = Linked_List.new(2,4,6)
-p another_list.to_a
-p another_list.push("tunisie")
-p another_list.push(5,10,15)
-p another_list.push("silly wabbits", "I'm hunting them")
+p another_list.to_a #=> [2,4,6]
+p another_list.push("tunisie") #=> [2,4,6,"tunisie"]
+p another_list.push(5,10,15) #=> [2,4,6,"tunisie",5,10,15]
+p another_list.push("silly wabbits", "I'm hunting them") #=> [2,4,6,"tunisie",5,10,15,"silly wabbits", "I'm hunting them"]
