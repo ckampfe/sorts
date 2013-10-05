@@ -16,17 +16,17 @@ class Linked_List
 
   def initialize(*raw_items)
     if raw_items.length > 0
-      # @first is defined inside of #builder for all lengths > 0 
+      # @head is defined inside of #builder for all lengths > 0 
       builder(raw_items, Node.new(raw_items[-1], nil), raw_items.length - 1) # linked list construction
     else
-      @first = nil
+      @head = nil
     end
   end
 
   # recursively extract items and define lists in terms of their next relationship
   def builder(nodes_list, current_node, index)
     if index < 1
-      @first = current_node.object_id
+      @head = current_node.object_id
       return self.to_a 
     end
     
@@ -48,11 +48,11 @@ class Linked_List
        array_builder.call(next_node)
     end
 
-    @first != nil ? array_builder.call(@first) : []
+    @head != nil ? array_builder.call(@head) : []
   end
  
   def first
-    ObjectSpace._id2ref(@first).instance_variable_get(:@value)
+    ObjectSpace._id2ref(@head).instance_variable_get(:@value)
   end
   
   # runs a lambda that follows the @next_pointer trail until it reaches a node with 
@@ -66,7 +66,7 @@ class Linked_List
       end
     end
 
-    @first ? last_getter.call(ObjectSpace._id2ref(@first)) : nil 
+    @head ? last_getter.call(ObjectSpace._id2ref(@head)) : nil 
   end
 
   # similar to the last_getter lambda in #last.
@@ -87,16 +87,16 @@ class Linked_List
         # push_vals[value], given that the intitial call is with index 0
         node.instance_variable_set(:@next_pointer, Node.new(push_vals[index - 1], nil).object_id)
         # call again with the next value of push_vals
-        last_setter.call(ObjectSpace._id2ref(@first), index + 1)
+        last_setter.call(ObjectSpace._id2ref(@head), index + 1)
       end
     end
 
     # determines if list is empty, and if so, defines a first value before proceeding. 
-    if @first
-      last_setter.call(@first, 0)
+    if @head
+      last_setter.call(@head, 0)
     else
-      @first = Node.new(push_vals[0], nil).object_id
-      last_setter.call(@first, 1)
+      @head = Node.new(push_vals[0], nil).object_id
+      last_setter.call(@head, 1)
     end
   end
   
@@ -120,7 +120,7 @@ class Linked_List
     i = 1
     pop_array = []
     while i <= n
-      pop_array.unshift(popper.call(ObjectSpace._id2ref(@first)))
+      pop_array.unshift(popper.call(ObjectSpace._id2ref(@head)))
       i += 1
     end
 
