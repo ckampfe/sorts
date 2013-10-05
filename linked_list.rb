@@ -104,27 +104,29 @@ class Linked_List
   end
 
   def pop(n=1)
-    
-    popper = lambda do |node, pop_count|
-      if pop_count > n   
-        return
-      end
-      
+    popper = lambda do |node|
       # the value of the next node's @next_pointer, necessary to check "one ahead" for the nil value,
-      # indicating end. 
+      # indicating end of the list. 
       next_node_pointer = ObjectSpace._id2ref(node.instance_variable_get(:@next_pointer)).instance_variable_get(:@next_pointer)
 
       if next_node_pointer == nil
         a_pop_val = ObjectSpace._id2ref(node.instance_variable_get(:@next_pointer)).instance_variable_get(:@value)
         node.instance_variable_set(:@next_pointer, nil) 
-        pop_count += 1
         return a_pop_val
       else
-        popper.call(ObjectSpace._id2ref(node.instance_variable_get(:@next_pointer)), pop_count)
+        popper.call(ObjectSpace._id2ref(node.instance_variable_get(:@next_pointer)))
       end
     end
+  
+    # calls the lambda enough times for the given #pop(n) value 
+    i = 1
+    pop_array = []
+    while i <= n
+      pop_array.unshift(popper.call(ObjectSpace._id2ref(@first)))
+      i += 1
+    end
 
-    popper.call(ObjectSpace._id2ref(@first), 1)
+    pop_array.length > 1 ? pop_array : pop_array[0]
   end
 end
 
@@ -135,6 +137,8 @@ p my_list.last #=> 6
 p my_list.to_a #=> [1,2,3,4,5,6]
 p my_list.pop #=> 6
 p my_list.to_a #=> [1,2,3,4,5]
+p my_list.pop(3) #=> [3,4,5]
+p my_list.to_a #=> [1,2]
 
 ## strings
 #string_list = Linked_List.new("hello", "there", "sonny", "boy")
