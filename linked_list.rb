@@ -16,8 +16,8 @@ class Linked_List
 
   def initialize(*raw_items)
     if raw_items.length > 0
-      @raw_items = raw_items
-      builder(@raw_items, Node.new(@raw_items.pop, nil), @raw_items.length) # linked list construction
+      # @first is defined inside of #builder for all lengths > 0 
+      builder(raw_items, Node.new(raw_items[-1], nil), raw_items.length - 1) # linked list construction
     else
       @first = nil
     end
@@ -30,7 +30,7 @@ class Linked_List
       return self.to_a 
     end
     
-    builder(nodes_list, Node.new(nodes_list[index-1], current_node.object_id), index - 1)
+    builder(nodes_list, Node.new(nodes_list[index - 1], current_node.object_id), index - 1)
   end
 
   def to_a
