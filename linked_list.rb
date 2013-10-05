@@ -57,7 +57,9 @@ class Linked_List
 
     @first != nil ? array_builder.call(@first) : []
   end
-  
+ 
+  # runs a lambda that follows the @next_pointer trail until it reaches a node with 
+  # @next_pointer == nil, at which point it returns the @value. 
   def last
     last_getter = lambda do |node|
       unless node.instance_variable_get(:@next_pointer) == nil
@@ -69,6 +71,33 @@ class Linked_List
 
     @first ? last_getter.call(ObjectSpace._id2ref(@first)) : nil 
   end
+
+  # similar to the last_getter lambda in #last.
+  # recursively calls a last_setter lambda to find the last value, and change its next
+  # pointer to a Node.new(push_vals[index], nil), making it the "new last", 
+  # so to speak. It calls itself as long as it has not reached the end of push_vals
+  def push(*push_vals) 
+    last_setter = lambda do |node, index|
+      if index > push_vals.length 
+        return self.to_a
+      end
+
+      # call self again unless the current @next_pointer indicates last value status.
+      unless node.instance_variable_get(:@next_pointer) == nil
+        last_setter.call(ObjectSpace._id2ref(node.instance_variable_get(:@next_pointer)), index)
+      else
+        # I'm still trying to work out why this is 'push_vals[value - 1]' instead of 
+        # push_vals[value], given that the intitial call is with index 0
+        node.instance_variable_set(:@next_pointer, Node.new(push_vals[index - 1], nil).object_id)
+        # call again with the next value of push_vals
+        last_setter.call(ObjectSpace._id2ref(@first), index + 1)
+      end
+    end
+
+
+    last_setter.call(@first, 0)
+  end
+
 
 end
 
@@ -95,3 +124,10 @@ empty = Linked_List.new()
 p empty #=> #<>
 p empty.last #=> nil
 p empty.to_a #=> []
+
+# push
+another_list = Linked_List.new(2,4,6)
+p another_list.to_a
+p another_list.push("tunisie")
+p another_list.push(5,10,15)
+p another_list.push("silly wabbits", "I'm hunting them")
