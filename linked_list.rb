@@ -94,8 +94,13 @@ class Linked_List
       end
     end
 
-
-    last_setter.call(@first, 0)
+    
+    if @first
+      last_setter.call(@first, 0)
+    else
+      @first = Node.new(push_vals[0], nil).object_id
+      last_setter.call(@first, 1)
+    end
   end
 
 
@@ -131,3 +136,9 @@ p another_list.to_a #=> [2,4,6]
 p another_list.push("tunisie") #=> [2,4,6,"tunisie"]
 p another_list.push(5,10,15) #=> [2,4,6,"tunisie",5,10,15]
 p another_list.push("silly wabbits", "I'm hunting them") #=> [2,4,6,"tunisie",5,10,15,"silly wabbits", "I'm hunting them"]
+p another_list.push()
+
+# empty push
+ep = Linked_List.new
+p ep.to_a #=> []
+p ep.push(11,73,93) #=> [11,73,93]
