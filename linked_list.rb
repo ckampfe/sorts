@@ -130,7 +130,7 @@ class Linked_List
   end
 end
 
-# integers
+# tests
 my_list = Linked_List.new(1,2,3,4,5,6)
 p my_list #=> #<>
 p my_list.last #=> 6
@@ -139,35 +139,5 @@ p my_list.pop #=> 6
 p my_list.to_a #=> [1,2,3,4,5]
 p my_list.pop(3) #=> [3,4,5]
 p my_list.to_a #=> [1,2]
-
-## strings
-#string_list = Linked_List.new("hello", "there", "sonny", "boy")
-#p string_list #=> #<>
-#p string_list.last #=> "boy"
-#p string_list.to_a #=> ["hello", "there", "sonny", "boy"] 
-#
-## mixed
-#mixed_list = Linked_List.new("hello", "caprica", 6)
-#p mixed_list #=> #<>
-#p mixed_list.last #=> 6
-#p mixed_list.to_a #=> ["hello", "caprica", 6] 
-#
-## empty
-#empty = Linked_List.new()
-#p empty #=> #<>
-#p empty.last #=> nil
-#p empty.to_a #=> []
-#
-## push
-#another_list = Linked_List.new(2,4,6)
-#p another_list.to_a #=> [2,4,6]
-#p another_list.push("tunisie") #=> [2,4,6,"tunisie"]
-#p another_list.push(5,10,15) #=> [2,4,6,"tunisie",5,10,15]
-#p another_list.push("silly wabbits", "I'm hunting them") #=> [2,4,6,"tunisie",5,10,15,"silly wabbits", "I'm hunting them"]
-#p another_list.push() #=> [2,4,6,"tunisie",5,10,15,"silly wabbits", "I'm hunting them"]
-#
-## empty push
-#ep = Linked_List.new
-#p ep.to_a #=> []
-#p ep.push(11,73,93) #=> [11,73,93]
-#p ep.push("a string") #=> [11,73,93,"a string"]
+p my_list.push("dinkytown", true) #=> [1,2,"dinkytown", true]
+p my_list.last #=> true
