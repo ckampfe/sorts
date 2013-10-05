@@ -14,30 +14,23 @@ class Linked_List
   
   attr_reader :actual
 
-  def initialize(*nodes)
-    if nodes.length > 0
-      @raws = nodes
-      @actual = []
-      builder(@raws, Node.new(@raws.pop, nil)) # linked list construction
-      @first = @actual[0].object_id
+  def initialize(*raw_items)
+    if raw_items.length > 0
+      @raw_items = raw_items
+      builder(@raw_items, Node.new(@raw_items.pop, nil), @raw_items.length) # linked list construction
     else
       @first = nil
     end
   end
 
   # recursively extract items and define lists in terms of their next relationship
-  def builder(nodes, a_node)
-   
-    # perhaps revise so that nodes do not live in an array, rather,
-    # just use '@first' as the the main vector, and have a temp
-    # variable hold the next prev
-    @actual.unshift(a_node)
-
-    if nodes.length == 0
-      return @actual
+  def builder(nodes_list, current_node, index)
+    if index < 1
+      @first = current_node.object_id
+      return self.to_a 
     end
     
-    builder(nodes, Node.new(nodes.pop, @actual[0].object_id))
+    builder(nodes_list, Node.new(nodes_list[index-1], current_node.object_id), index - 1)
   end
 
   def to_a
@@ -102,7 +95,8 @@ class Linked_List
       last_setter.call(@first, 1)
     end
   end
-
+  
+  # this method is not efficient, running I think O(n^2).
   def pop(n=1)
     popper = lambda do |node|
       # the value of the next node's @next_pointer, necessary to check "one ahead" for the nil value,
