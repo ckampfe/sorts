@@ -94,7 +94,7 @@ class Linked_List
       end
     end
 
-    
+    # determines if list is empty, and if so, defines a first value before proceeding. 
     if @first
       last_setter.call(@first, 0)
     else
@@ -142,3 +142,4 @@ p another_list.push()
 ep = Linked_List.new
 p ep.to_a #=> []
 p ep.push(11,73,93) #=> [11,73,93]
+p ep.push("a string") #=> [11,73,93,"a string"]
