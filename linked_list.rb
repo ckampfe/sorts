@@ -57,25 +57,41 @@ class Linked_List
 
     @first != nil ? array_builder.call(@first) : []
   end
+  
+  def last
+    last_getter = lambda do |node|
+      unless node.instance_variable_get(:@next_pointer) == nil
+        last_getter.call(ObjectSpace._id2ref(node.instance_variable_get(:@next_pointer)))
+      else
+        return node.instance_variable_get(:@value)
+      end
+    end
+
+    @first ? last_getter.call(ObjectSpace._id2ref(@first)) : nil 
+  end
 
 end
 
 # integers
 my_list = Linked_List.new(1,2,3,4,5,6)
-p my_list
-p my_list.to_a
+p my_list #=> #<>
+p my_list.last #=> 6
+p my_list.to_a #=> [1,2,3,4,5,6]
 
 # strings
 string_list = Linked_List.new("hello", "there", "sonny", "boy")
-p string_list
-p string_list.to_a
+p string_list #=> #<>
+p string_list.last #=> "boy"
+p string_list.to_a #=> ["hello", "there", "sonny", "boy"] 
 
 # mixed
 mixed_list = Linked_List.new("hello", "caprica", 6)
-p mixed_list
-p mixed_list.to_a
+p mixed_list #=> #<>
+p mixed_list.last #=> 6
+p mixed_list.to_a #=> ["hello", "caprica", 6] 
 
 # empty
 empty = Linked_List.new()
-p empty
-p empty.to_a
+p empty #=> #<>
+p empty.last #=> nil
+p empty.to_a #=> []
