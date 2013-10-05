@@ -51,6 +51,10 @@ class Linked_List
     @first != nil ? array_builder.call(@first) : []
   end
  
+  def first
+    ObjectSpace._id2ref(@first).instance_variable_get(:@value)
+  end
+  
   # runs a lambda that follows the @next_pointer trail until it reaches a node with 
   # @next_pointer == nil, at which point it returns the @value. 
   def last
@@ -135,3 +139,4 @@ p my_list.pop(3) #=> [3,4,5]
 p my_list.to_a #=> [1,2]
 p my_list.push("dinkytown", true) #=> [1,2,"dinkytown", true]
 p my_list.last #=> true
+p my_list.first #=> 1
