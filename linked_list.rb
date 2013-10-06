@@ -133,6 +133,22 @@ class Linked_List
     
     unshift_vals.length > 0 ? unshifter.call(unshift_vals.length - 1) : self.to_a
   end
+
+
+  # note: maybe crawl until position n-1, and set n-1[@next_pointer] to nil?
+  def shift(n=1)
+    shift_array = []
+    shifter = lambda do |position|
+      shift_array << ObjectSpace._id2ref(@head).instance_variable_get(:@value)   
+      @head = ObjectSpace._id2ref(@head).instance_variable_get(:@next_pointer)
+
+      position > 1 ? shifter.call(position - 1) : shift_array
+    end
+
+    # the usual trick: return the first element unless n > 1
+    n > 1 ? shifter.call(n) : shifter.call(n)[0]
+  end
+
 end
 
 # tests
@@ -149,6 +165,11 @@ p my_list.last #=> true
 p my_list.first #=> 1
 p my_list.unshift #=> [1,2,"dinkytown",true]
 p my_list.unshift("holland", 1945) #=> ["holland",1945,1,2,"dinkytown",true]
+p my_list.shift #=> "holland"
+p my_list.shift(3) #=> [1945,1,2]
+p my_list.to_a #=> ["dinkytown",true]
+
+p "-----------------"
 
 newy = Linked_List.new(3)
 p newy #=> #<>
